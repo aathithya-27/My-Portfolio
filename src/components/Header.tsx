@@ -10,10 +10,7 @@ const ALogo = () => (
     xmlns="http://www.w3.org/2000/svg"
     className="text-purple-600 dark:text-purple-400"
   >
-    <path
-      d="M12 2L2 22H6L12 12L18 22H22L12 2Z"
-      fill="currentColor"
-    />
+    <path d="M12 2L2 22H6L12 12L18 22H22L12 2Z" fill="currentColor" />
   </svg>
 );
 
@@ -35,7 +32,6 @@ const Header = () => {
       const offset = window.scrollY;
       setScrolled(offset > 50);
     };
-
     window.addEventListener('scroll', handleScroll);
     return () => window.removeEventListener('scroll', handleScroll);
   }, []);
@@ -65,9 +61,7 @@ const Header = () => {
     return () => document.removeEventListener('mousedown', handleClick);
   }, [isMenuOpen]);
 
-  const toggleMenu = () => {
-    setIsMenuOpen(!isMenuOpen);
-  };
+  const toggleMenu = () => setIsMenuOpen(!isMenuOpen);
 
   return (
     <header
@@ -77,24 +71,16 @@ const Header = () => {
           : 'bg-transparent py-4'
       }`}
     >
+      {/* Desktop/Laptop View */}
       <div className="container mx-auto px-4 md:px-6 flex justify-between items-center">
-        {/* Mobile Menu Button */}
-        <button
-          className="md:hidden bg-white dark:bg-gray-800 text-gray-700 dark:text-gray-300 hover:text-purple-600 dark:hover:text-purple-400 z-50 relative p-2 rounded-md focus:outline-none focus:ring-2 focus:ring-purple-600"
-          onClick={toggleMenu}
-          aria-label="Toggle menu"
-          aria-expanded={isMenuOpen}
-        >
-          {isMenuOpen ? <X size={28} color="purple" /> : <Menu size={28} color="purple" />}
-        </button>
-
+        {/* Logo (always on the left) */}
         <a
           href="#home"
           aria-label="Homepage"
-          className="flex items-center gap-2 text-2xl font-bold bg-gradient-to-r from-purple-400 via-fuchsia-500 to-indigo-600 text-transparent bg-clip-text ml-4"
+          className="flex items-center gap-2 text-2xl font-bold bg-gradient-to-r from-purple-400 via-fuchsia-500 to-indigo-600 text-transparent bg-clip-text ml-0"
         >
           <ALogo />
-          <span> Aathithya</span>
+          <span className="hidden sm:inline">Aathithya</span>
         </a>
 
         {/* Desktop Navigation */}
@@ -109,9 +95,19 @@ const Header = () => {
             </a>
           ))}
         </nav>
+
+        {/* Mobile: Menu on the Right */}
+        <button
+          className="md:hidden bg-white dark:bg-gray-800 text-gray-700 dark:text-gray-300 hover:text-purple-600 dark:hover:text-purple-400 z-50 relative p-2 rounded-md focus:outline-none focus:ring-2 focus:ring-purple-600 ml-auto"
+          onClick={toggleMenu}
+          aria-label="Toggle menu"
+          aria-expanded={isMenuOpen}
+        >
+          {isMenuOpen ? <X size={28} color="purple" /> : <Menu size={28} color="purple" />}
+        </button>
       </div>
 
-      {/* Mobile Navigation Overlay */}
+      {/* Mobile Menu Overlay */}
       {isMenuOpen && (
         <div
           aria-hidden="true"
@@ -120,23 +116,23 @@ const Header = () => {
         />
       )}
 
-      {/* Mobile Navigation */}
+      {/* Mobile Menu: Overlay, Vertically Centered */}
       <div
         ref={menuRef}
-        className={`md:hidden fixed top-0 left-0 right-0 z-50 bg-gradient-to-r from-purple-400 via-fuchsia-500 to-indigo-600 shadow-lg transition-transform duration-300 ease-in-out ${
-          isMenuOpen ? 'translate-y-0' : '-translate-y-full'
+        className={`md:hidden fixed inset-0 z-50 flex items-center justify-center transition-transform duration-300 ${
+          isMenuOpen ? 'opacity-100 pointer-events-auto' : 'opacity-0 pointer-events-none'
         }`}
-        style={{ willChange: 'transform' }}
+        style={{ willChange: 'opacity' }}
         role="dialog"
         aria-modal="true"
         tabIndex={-1}
       >
-        <nav className="flex flex-col items-center space-y-4 py-8">
+        <nav className="bg-gradient-to-r from-purple-400 via-fuchsia-500 to-indigo-600 rounded-lg w-11/12 max-w-xs mx-auto flex flex-col items-center space-y-6 py-8 shadow-2xl">
           {navLinks.map((link) => (
             <a
               key={link.name}
               href={link.href}
-              className="text-white font-semibold text-lg py-2 w-full text-center transition-colors duration-200 hover:bg-white/10 rounded"
+              className="text-white font-semibold text-xl w-full text-center py-2 rounded transition-colors hover:bg-white/20"
               onClick={() => setIsMenuOpen(false)}
               tabIndex={isMenuOpen ? 0 : -1}
             >
