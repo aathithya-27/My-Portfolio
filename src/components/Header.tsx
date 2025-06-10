@@ -8,7 +8,7 @@ const ALogo = () => (
     viewBox="0 0 24 24"
     fill="none"
     xmlns="http://www.w3.org/2000/svg"
-    className="text-purple-600 dark:text-purple-400"
+    className="text-purple-400"
   >
     <path d="M12 2L2 22H6L12 12L18 22H22L12 2Z" fill="currentColor" />
   </svg>
@@ -24,27 +24,23 @@ const navLinks = [
 
 const Header = () => {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
-  const [scrolled, setScrolled] = useState(false);
   const menuRef = useRef<HTMLDivElement>(null);
 
+  // Prevent background scroll when mobile menu is open
   useEffect(() => {
-    const handleScroll = () => {
-      const offset = window.scrollY;
-      setScrolled(offset > 50);
+    document.body.style.overflow = isMenuOpen ? 'hidden' : '';
+    return () => {
+      document.body.style.overflow = '';
     };
-    window.addEventListener('scroll', handleScroll);
-    return () => window.removeEventListener('scroll', handleScroll);
-  }, []);
+  }, [isMenuOpen]);
 
-  // ESC to close
+  // Close on ESC
   useEffect(() => {
     const handleKeyDown = (e: KeyboardEvent) => {
       if (e.key === 'Escape') setIsMenuOpen(false);
     };
     if (isMenuOpen) {
       document.addEventListener('keydown', handleKeyDown);
-    } else {
-      document.removeEventListener('keydown', handleKeyDown);
     }
     return () => document.removeEventListener('keydown', handleKeyDown);
   }, [isMenuOpen]);
@@ -61,86 +57,74 @@ const Header = () => {
     return () => document.removeEventListener('mousedown', handleClick);
   }, [isMenuOpen]);
 
-  const toggleMenu = () => setIsMenuOpen(!isMenuOpen);
-
   return (
-    <header
-      className={`fixed top-0 left-0 right-0 z-50 transition-all duration-300 ${
-        scrolled
-          ? 'bg-white/90 dark:bg-gray-900/90 backdrop-blur-md shadow-md py-2'
-          : 'bg-transparent py-4'
-      }`}
-    >
-      {/* Desktop/Laptop View */}
-      <div className="container mx-auto px-4 md:px-6 flex justify-between items-center">
-        {/* Logo (always on the left) */}
-        <a
-          href="#home"
-          aria-label="Homepage"
-          className="flex items-center gap-2 text-2xl font-bold bg-gradient-to-r from-purple-400 via-fuchsia-500 to-indigo-600 text-transparent bg-clip-text ml-0"
-        >
-          <ALogo />
-          <span className="hidden sm:inline">Aathithya</span>
-        </a>
+    <header className="fixed top-0 left-0 right-0 z-50 bg-transparent">
+      <div className="w-full backdrop-blur-lg bg-black/70 dark:bg-black/80 border-b border-white/10 transition-all duration-300">
+        <div className="container mx-auto px-4 md:px-10 h-16 flex items-center justify-between">
+          {/* Logo left */}
+          <a
+            href="#home"
+            aria-label="Homepage"
+            className="flex items-center gap-2 text-2xl font-bold select-none"
+          >
+            <ALogo />
+            <span className="text-purple-300 font-extrabold hidden sm:block">Aathithya</span>
+          </a>
 
-        {/* Desktop Navigation */}
-        <nav className="hidden md:flex items-center space-x-8">
-          {navLinks.map((link) => (
-            <a
-              key={link.name}
-              href={link.href}
-              className="text-gray-700 dark:text-gray-300 hover:text-purple-600 dark:hover:text-purple-400 font-medium transition-colors duration-200"
-            >
-              {link.name}
-            </a>
-          ))}
-        </nav>
+          {/* Desktop Navigation (right) */}
+          <nav className="hidden md:flex items-center space-x-10">
+            {navLinks.map((link) => (
+              <a
+                key={link.name}
+                href={link.href}
+                className="text-gray-100 hover:text-purple-300 font-medium text-lg tracking-wide transition-colors duration-200"
+              >
+                {link.name}
+              </a>
+            ))}
+          </nav>
 
-        {/* Mobile: Menu on the Right */}
-        <button
-          className="md:hidden bg-white dark:bg-gray-800 text-gray-700 dark:text-gray-300 hover:text-purple-600 dark:hover:text-purple-400 z-50 relative p-2 rounded-md focus:outline-none focus:ring-2 focus:ring-purple-600 ml-auto"
-          onClick={toggleMenu}
-          aria-label="Toggle menu"
-          aria-expanded={isMenuOpen}
-        >
-          {isMenuOpen ? <X size={28} color="purple" /> : <Menu size={28} color="purple" />}
-        </button>
+          {/* Mobile Menu Button (right) */}
+          <button
+            className="md:hidden p-2 rounded-lg border-2 border-purple-300 hover:bg-purple-300/10 transition ml-auto"
+            onClick={() => setIsMenuOpen(true)}
+            aria-label="Open menu"
+          >
+            <Menu size={32} className="text-purple-300" />
+          </button>
+        </div>
       </div>
 
-      {/* Mobile Menu Overlay */}
+      {/* Mobile Overlay Menu */}
       {isMenuOpen && (
-        <div
-          aria-hidden="true"
-          className="fixed inset-0 z-40 bg-black/40 transition-opacity animate-fade-in"
-          onClick={() => setIsMenuOpen(false)}
-        />
-      )}
-
-      {/* Mobile Menu: Overlay, Vertically Centered */}
-      <div
-        ref={menuRef}
-        className={`md:hidden fixed inset-0 z-50 flex items-center justify-center transition-transform duration-300 ${
-          isMenuOpen ? 'opacity-100 pointer-events-auto' : 'opacity-0 pointer-events-none'
-        }`}
-        style={{ willChange: 'opacity' }}
-        role="dialog"
-        aria-modal="true"
-        tabIndex={-1}
-      >
-        <nav className="bg-gradient-to-r from-purple-400 via-fuchsia-500 to-indigo-600 rounded-lg w-11/12 max-w-xs mx-auto flex flex-col items-center space-y-6 py-8 shadow-2xl">
-          {navLinks.map((link) => (
-            <a
-              key={link.name}
-              href={link.href}
-              className="text-white font-semibold text-xl w-full text-center py-2 rounded transition-colors hover:bg-white/20"
+        <div className="fixed inset-0 z-50 flex items-center justify-center bg-black/70 transition-all">
+          {/* Centered Card */}
+          <div
+            ref={menuRef}
+            className="w-11/12 max-w-sm mx-auto rounded-xl bg-gradient-to-br from-purple-600 via-pink-400 to-blue-300 shadow-2xl flex flex-col items-center py-10 px-4 gap-6"
+          >
+            {/* Close Button */}
+            <button
+              className="absolute top-4 right-4 p-1 border-2 border-white rounded-lg"
               onClick={() => setIsMenuOpen(false)}
-              tabIndex={isMenuOpen ? 0 : -1}
+              aria-label="Close menu"
             >
-              {link.name}
-            </a>
-          ))}
-        </nav>
-      </div>
+              <X size={32} className="text-white" />
+            </button>
+            {navLinks.map((link) => (
+              <a
+                key={link.name}
+                href={link.href}
+                className="font-bold text-2xl text-black hover:text-white tracking-wide py-2 text-center w-full"
+                onClick={() => setIsMenuOpen(false)}
+                tabIndex={isMenuOpen ? 0 : -1}
+              >
+                {link.name}
+              </a>
+            ))}
+          </div>
+        </div>
+      )}
     </header>
   );
 };
