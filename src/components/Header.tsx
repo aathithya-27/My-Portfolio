@@ -71,7 +71,7 @@ const Header = () => {
             <span className="text-purple-300 font-extrabold hidden sm:block">Aathithya</span>
           </a>
 
-          {/* Desktop Navigation (right) */}
+          {/* Desktop Navigation (right) - always visible on md+ */}
           <nav className="hidden md:flex items-center space-x-10">
             {navLinks.map((link) => (
               <a
@@ -84,7 +84,7 @@ const Header = () => {
             ))}
           </nav>
 
-          {/* Mobile Menu Button (right) */}
+          {/* Mobile Menu Button (right) - only visible below md */}
           <button
             className="md:hidden p-2 rounded-lg border-2 border-purple-300 hover:bg-purple-300/10 transition ml-auto"
             onClick={() => setIsMenuOpen(true)}
