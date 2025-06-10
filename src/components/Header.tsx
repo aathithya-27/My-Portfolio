@@ -1,4 +1,4 @@
-import { useState, useEffect } from 'react';
+import { useState, useEffect, useRef } from 'react';
 import { Menu, X } from 'lucide-react';
 
 const ALogo = () => (
@@ -28,6 +28,7 @@ const navLinks = [
 const Header = () => {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
   const [scrolled, setScrolled] = useState(false);
+  const menuRef = useRef<HTMLDivElement>(null);
 
   useEffect(() => {
     const handleScroll = () => {
@@ -38,6 +39,31 @@ const Header = () => {
     window.addEventListener('scroll', handleScroll);
     return () => window.removeEventListener('scroll', handleScroll);
   }, []);
+
+  // ESC to close
+  useEffect(() => {
+    const handleKeyDown = (e: KeyboardEvent) => {
+      if (e.key === 'Escape') setIsMenuOpen(false);
+    };
+    if (isMenuOpen) {
+      document.addEventListener('keydown', handleKeyDown);
+    } else {
+      document.removeEventListener('keydown', handleKeyDown);
+    }
+    return () => document.removeEventListener('keydown', handleKeyDown);
+  }, [isMenuOpen]);
+
+  // Click outside to close
+  useEffect(() => {
+    if (!isMenuOpen) return;
+    const handleClick = (e: MouseEvent) => {
+      if (menuRef.current && !menuRef.current.contains(e.target as Node)) {
+        setIsMenuOpen(false);
+      }
+    };
+    document.addEventListener('mousedown', handleClick);
+    return () => document.removeEventListener('mousedown', handleClick);
+  }, [isMenuOpen]);
 
   const toggleMenu = () => {
     setIsMenuOpen(!isMenuOpen);
@@ -57,6 +83,7 @@ const Header = () => {
           className="md:hidden bg-white dark:bg-gray-800 text-gray-700 dark:text-gray-300 hover:text-purple-600 dark:hover:text-purple-400 z-50 relative p-2 rounded-md focus:outline-none focus:ring-2 focus:ring-purple-600"
           onClick={toggleMenu}
           aria-label="Toggle menu"
+          aria-expanded={isMenuOpen}
         >
           {isMenuOpen ? <X size={28} color="purple" /> : <Menu size={28} color="purple" />}
         </button>
@@ -84,19 +111,34 @@ const Header = () => {
         </nav>
       </div>
 
+      {/* Mobile Navigation Overlay */}
+      {isMenuOpen && (
+        <div
+          aria-hidden="true"
+          className="fixed inset-0 z-40 bg-black/40 transition-opacity animate-fade-in"
+          onClick={() => setIsMenuOpen(false)}
+        />
+      )}
+
       {/* Mobile Navigation */}
       <div
-        className={`md:hidden absolute top-full left-0 right-0 bg-gradient-to-r from-purple-400 via-fuchsia-500 to-indigo-600 shadow-lg transition-transform duration-300 ease-in-out z-50 ${
+        ref={menuRef}
+        className={`md:hidden fixed top-0 left-0 right-0 z-50 bg-gradient-to-r from-purple-400 via-fuchsia-500 to-indigo-600 shadow-lg transition-transform duration-300 ease-in-out ${
           isMenuOpen ? 'translate-y-0' : '-translate-y-full'
         }`}
+        style={{ willChange: 'transform' }}
+        role="dialog"
+        aria-modal="true"
+        tabIndex={-1}
       >
-        <nav className="container mx-auto px-4 py-4 flex flex-col space-y-4">
+        <nav className="flex flex-col items-center space-y-4 py-8">
           {navLinks.map((link) => (
             <a
               key={link.name}
               href={link.href}
-              className="text-white font-medium transition-colors duration-200 py-4 text-lg text-center"
+              className="text-white font-semibold text-lg py-2 w-full text-center transition-colors duration-200 hover:bg-white/10 rounded"
               onClick={() => setIsMenuOpen(false)}
+              tabIndex={isMenuOpen ? 0 : -1}
             >
               {link.name}
             </a>
