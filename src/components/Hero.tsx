@@ -1,51 +1,115 @@
-import { useRef, useState } from "react";
+import { useCallback } from "react";
+import Particles from "react-tsparticles";
+import { loadFull } from "tsparticles";
+
+const AuroraSVG = () => (
+  <svg
+    className="absolute inset-0 w-full h-full pointer-events-none z-0"
+    viewBox="0 0 1440 600"
+    fill="none"
+    preserveAspectRatio="none"
+  >
+    <defs>
+      <linearGradient id="aurora1" x1="0" y1="0" x2="1" y2="1">
+        <stop offset="0%" stopColor="#a855f7" stopOpacity="0.7" />
+        <stop offset="100%" stopColor="#06b6d4" stopOpacity="0.3" />
+      </linearGradient>
+      <linearGradient id="aurora2" x1="1" y1="0" x2="0" y2="1">
+        <stop offset="0%" stopColor="#f472b6" stopOpacity="0.6" />
+        <stop offset="100%" stopColor="#6366f1" stopOpacity="0.2" />
+      </linearGradient>
+    </defs>
+    <g>
+      <path
+        d="
+          M0,300
+          Q400,200 800,300
+          T1440,300
+          L1440,600 L0,600 Z
+        "
+        fill="url(#aurora1)"
+      >
+        <animate
+          attributeName="d"
+          dur="10s"
+          repeatCount="indefinite"
+          values="
+            M0,300 Q400,200 800,300 T1440,300 L1440,600 L0,600 Z;
+            M0,320 Q400,250 800,330 T1440,350 L1440,600 L0,600 Z;
+            M0,300 Q400,200 800,300 T1440,300 L1440,600 L0,600 Z
+          "
+        />
+      </path>
+      <path
+        d="
+          M0,400
+          Q600,500 1440,400
+          L1440,600 L0,600 Z
+        "
+        fill="url(#aurora2)"
+      >
+        <animate
+          attributeName="d"
+          dur="13s"
+          repeatCount="indefinite"
+          values="
+            M0,400 Q600,500 1440,400 L1440,600 L0,600 Z;
+            M0,420 Q600,480 1440,420 L1440,600 L0,600 Z;
+            M0,400 Q600,500 1440,400 L1440,600 L0,600 Z
+          "
+        />
+      </path>
+    </g>
+  </svg>
+);
+
+const particlesOptions = {
+  fullScreen: { enable: false },
+  background: { color: "transparent" },
+  particles: {
+    number: { value: 60, density: { enable: true, area: 1200 } },
+    color: { value: ["#f3f4f6", "#a5b4fc", "#f0abfc"] },
+    opacity: { value: 0.6, random: true, anim: { enable: true, speed: 0.5, opacity_min: 0.3, sync: false } },
+    size: { value: 2, random: { enable: true, minimumValue: 1 } },
+    move: { enable: true, speed: 0.2, direction: "none", random: true, straight: false, outModes: "out" },
+    shape: { type: "circle" }
+  },
+  detectRetina: true,
+};
 
 const Hero = () => {
-  const sectionRef = useRef<HTMLDivElement>(null);
-  const [deg, setDeg] = useState(120);
-
-  const handleMouseMove = (e: React.MouseEvent<HTMLDivElement, MouseEvent>) => {
-    const rect = sectionRef.current?.getBoundingClientRect();
-    if (!rect) return;
-    const x = e.clientX - (rect.left + rect.width / 2);
-    const y = e.clientY - (rect.top + rect.height / 2);
-    const angle = (Math.atan2(y, x) * 180) / Math.PI + 180;
-    setDeg(angle);
-  };
+  // tsParticles loader for full features
+  const particlesInit = useCallback(async (engine) => {
+    await loadFull(engine);
+  }, []);
 
   return (
-    <section
-      ref={sectionRef}
-      onMouseMove={handleMouseMove}
-      className="relative flex flex-col items-center justify-center min-h-screen bg-white dark:bg-gray-900 text-gray-900 dark:text-white px-4 overflow-hidden transition-colors duration-300"
-      style={{
-        background: `linear-gradient(${deg}deg,
-          rgba(168,85,247,0.16) 0%,
-          rgba(236,72,153,0.13) 40%,
-          rgba(79,70,229,0.13) 100%
-        )`,
-        transition: "background 0.2s",
-      }}
-    >
-      {/* Blurred Animated Blobs */}
-      <div className="pointer-events-none absolute -top-40 -left-40 w-[400px] h-[400px] rounded-full bg-purple-400 opacity-30 blur-3xl animate-blob z-0" />
-      <div className="pointer-events-none absolute -bottom-40 -right-40 w-[400px] h-[400px] rounded-full bg-fuchsia-400 opacity-25 blur-3xl animate-blob2 z-0" />
-      <div className="pointer-events-none absolute top-1/4 left-1/2 w-[300px] h-[300px] rounded-full bg-indigo-400 opacity-20 blur-3xl animate-blob3 z-0" />
+    <section className="relative flex flex-col items-center justify-center min-h-screen bg-gradient-to-b from-[#09090b] to-[#18181b] text-white overflow-hidden">
+      {/* Aurora SVG Animated Waves */}
+      <AuroraSVG />
 
-      {/* Main Content */}
-      <div className="relative z-10 w-full flex flex-col items-center">
+      {/* Particle layer */}
+      <Particles
+        className="absolute inset-0 w-full h-full z-0 pointer-events-none"
+        id="tsparticles"
+        init={particlesInit}
+        options={particlesOptions}
+      />
+
+      {/* Main content */}
+      <div className="relative z-10 w-full flex flex-col items-center px-4">
         <div className="flex flex-col md:flex-row items-center justify-center w-full pt-16 md:pt-24">
-          <div className="text-4xl sm:text-6xl font-bold text-gray-900 dark:text-white md:text-right md:pr-6 leading-tight transition-colors duration-300">
+          <div className="text-4xl sm:text-6xl font-bold text-white md:text-right md:pr-6 leading-tight transition-colors duration-300">
             <span className="block">Hello, I'm</span>
           </div>
-          <div className="text-4xl sm:text-6xl font-extrabold text-transparent bg-clip-text bg-gradient-to-r from-purple-500 via-fuchsia-500 to-indigo-500 dark:from-purple-400 dark:via-fuchsia-500 dark:to-indigo-400 md:pl-6 leading-tight">
+          <div className="text-4xl sm:text-6xl font-extrabold text-transparent bg-clip-text bg-gradient-to-r from-purple-400 via-fuchsia-400 to-cyan-300 md:pl-6 leading-tight">
             <span className="block">Aathithya P R</span>
           </div>
         </div>
-        <div className="mt-8 text-center text-xl sm:text-2xl font-semibold text-gray-700 dark:text-gray-200 transition-colors duration-300">
+        <div className="mt-8 text-center text-xl sm:text-2xl font-semibold text-gray-200 transition-colors duration-300">
           Software Developer | UI/UX Enthusiast | OpenCV Explorer
         </div>
-        <div className="mt-6 max-w-3xl text-center text-base sm:text-lg text-gray-600 dark:text-gray-300 font-normal transition-colors duration-300">
+        <div className="mt-6 max-w-3xl text-center text-base sm:text-lg text-gray-300 font-normal transition-colors duration-300">
           Building beautiful, responsive web applications with modern technologies.<br />
           Passionate about creating seamless user experiences and clean code.
         </div>
@@ -58,7 +122,7 @@ const Hero = () => {
           </a>
           <a
             href="#contact"
-            className="px-8 py-3 rounded-full border border-purple-400 text-lg font-semibold text-purple-600 dark:text-purple-300 hover:bg-purple-100 dark:hover:bg-purple-600/30 shadow-lg hover:scale-105 transform transition"
+            className="px-8 py-3 rounded-full border border-purple-400 text-lg font-semibold text-purple-200 hover:bg-purple-100/10 shadow-lg hover:scale-105 transform transition"
           >
             Contact Me
           </a>
