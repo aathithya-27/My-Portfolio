@@ -9,9 +9,9 @@ const Hero = () => {
       className="min-h-screen flex flex-col justify-center items-center pt-20 pb-8 px-4 bg-gradient-to-b from-white to-gray-100 dark:from-gray-900 dark:to-gray-800"
     >
       <div className="w-full max-w-2xl mx-auto text-center space-y-8">
-        <h1 className="text-4xl sm:text-5xl md:text-7xl font-extrabold mb-4 tracking-tight flex flex-col md:flex-row gap-2 md:gap-4 justify-center items-center">
+        <h1 className="text-4xl sm:text-5xl md:text-7xl font-extrabold mb-4 tracking-tight flex flex-col gap-2 items-center">
           <span className="text-gray-900 dark:text-white">Hello, I'm</span>
-          <span className="text-transparent bg-clip-text bg-gradient-to-r from-purple-500 via-fuchsia-600 to-indigo-700">
+          <span className="text-transparent bg-clip-text bg-gradient-to-r from-purple-500 via-fuchsia-600 to-indigo-700 block">
             {fullName}
           </span>
         </h1>
