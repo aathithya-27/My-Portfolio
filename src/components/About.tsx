@@ -1,10 +1,12 @@
 import { User, Calendar, MapPin, Briefcase } from 'lucide-react';
+import AboutAurora from "./AboutAurora";
 
 const About = () => {
   return (
     <section id="about" className="py-20 bg-gray-50 dark:bg-gray-800">
       <div className="container mx-auto px-4 md:px-6">
-        <div className="flex flex-col md:flex-row items-center gap-12">
+        <div className="relative flex flex-col md:flex-row items-center gap-12">
+          <AboutAurora />
           <div className="md:w-1/2">
             <div className="relative">
               <div className="absolute -inset-4 bg-gradient-to-r from-purple-400 via-fuchsia-500 to-indigo-600/20 rounded-xl blur-xl dark:bg-gradient-to-r dark:from-purple-600 dark:via-fuchsia-600 dark:to-indigo-700/20"></div>

@@ -1,3 +1,5 @@
+import EducationCardGradient from './EducationCardGradient';
+
 const Education = () => {
   return (
     <section id="education" className="py-20 bg-white dark:bg-gray-900">
@@ -11,7 +13,7 @@ const Education = () => {
         </div>
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
           {/* Education cards */}
-          <div className="bg-gray-50 dark:bg-gray-800 rounded-xl shadow-md p-6">
+          <EducationCardGradient>
             <h3 className="text-xl font-semibold text-purple-600 dark:text-purple-400 mb-2">Bachelor of Engineering</h3>
             <p className="italic mb-2 text-gray-700 dark:text-gray-300">R.M.K Engineering College</p>
             <p className="mb-4 font-medium text-gray-800 dark:text-gray-200">2019 - 2023</p>
@@ -20,8 +22,8 @@ const Education = () => {
               <li>Graduated with First Class Honors</li>
               <li>Active member of the Coding Club</li>
             </ul>
-          </div>
-          <div className="bg-gray-50 dark:bg-gray-800 rounded-xl shadow-md p-6">
+          </EducationCardGradient>
+          <EducationCardGradient>
             <h3 className="text-xl font-semibold text-purple-600 dark:text-purple-400 mb-2">Higher Secondary Certificate</h3>
             <p className="italic mb-2 text-gray-700 dark:text-gray-300">ABC Higher Secondary School</p>
             <p className="mb-4 font-medium text-gray-800 dark:text-gray-200">2017 - 2019</p>
@@ -29,8 +31,8 @@ const Education = () => {
               <li>Science Stream with Mathematics and Physics</li>
               <li>Graduated with Distinction</li>
             </ul>
-          </div>
-          <div className="bg-gray-50 dark:bg-gray-800 rounded-xl shadow-md p-6">
+          </EducationCardGradient>
+          <EducationCardGradient>
             <h3 className="text-xl font-semibold text-purple-600 dark:text-purple-400 mb-2">Secondary School Certificate</h3>
             <p className="italic mb-2 text-gray-700 dark:text-gray-300">XYZ High School</p>
             <p className="mb-4 font-medium text-gray-800 dark:text-gray-200">2015 - 2017</p>
@@ -38,7 +40,7 @@ const Education = () => {
               <li>Completed with Honors</li>
               <li>Member of the Science Club</li>
             </ul>
-          </div>
+          </EducationCardGradient>
         </div>
       </div>
     </section>
