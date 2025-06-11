@@ -2,52 +2,93 @@ import { useCallback, useEffect, useRef, useState } from "react";
 import Particles from "react-tsparticles";
 import { loadFull } from "tsparticles";
 
-function getWavePath(mouseX: number, width = 1440) {
-  // mouseX is in [0, width]
-  // Map mouseX to a control point offset, e.g. [-100, 100]
-  const offset = ((mouseX / width) - 0.5) * 200; // Range: -100 to 100
-  return `
-    M0,300
-    Q400,${200 + offset} 800,${300 + offset}
-    T1440,300
-    L1440,600 L0,600 Z
-  `;
+// Generate a smooth SVG path for a sine wave
+function getSineWavePath({
+  width = 1440,
+  height = 600,
+  amplitude = 40,
+  frequency = 2,
+  phase = 0,
+  yOffset = 300,
+  steps = 80,
+}: {
+  width?: number;
+  height?: number;
+  amplitude?: number;
+  frequency?: number; // number of full wave cycles across the width
+  phase?: number;     // horizontal shift, in radians
+  yOffset?: number;   // vertical center
+  steps?: number;     // number of points to sample
+}) {
+  const points = [];
+  for (let i = 0; i <= steps; i++) {
+    const x = (i / steps) * width;
+    // The sine function:
+    const radians = frequency * ((x / width) * 2 * Math.PI) + phase;
+    const y = yOffset + Math.sin(radians) * amplitude;
+    points.push([x, y]);
+  }
+  // Build SVG path: start at left, wave, then bottom and close
+  let d = `M0,${height} L${points[0][0]},${points[0][1]}`;
+  for (let i = 1; i < points.length; i++) {
+    d += ` L${points[i][0]},${points[i][1]}`;
+  }
+  d += ` L${width},${height} Z`;
+  return d;
 }
 
-const AuroraSVG = ({ mouseX }: { mouseX: number }) => (
-  <svg
-    className="absolute inset-0 w-full h-full pointer-events-none z-0"
-    viewBox="0 0 1440 600"
-    fill="none"
-    preserveAspectRatio="none"
-  >
-    <defs>
-      <linearGradient id="aurora1" x1="0" y1="0" x2="1" y2="1">
-        <stop offset="0%" stopColor="#a855f7" stopOpacity="0.7" />
-        <stop offset="100%" stopColor="#06b6d4" stopOpacity="0.3" />
-      </linearGradient>
-      <linearGradient id="aurora2" x1="1" y1="0" x2="0" y2="1">
-        <stop offset="0%" stopColor="#f472b6" stopOpacity="0.6" />
-        <stop offset="100%" stopColor="#6366f1" stopOpacity="0.2" />
-      </linearGradient>
-    </defs>
-    <g>
-      <path
-        d={getWavePath(mouseX)}
-        fill="url(#aurora1)"
-        style={{ transition: "d 0.25s" }}
-      />
-      <path
-        d={`
-          M0,400
-          Q600,500 1440,400
-          L1440,600 L0,600 Z
-        `}
-        fill="url(#aurora2)"
-      />
-    </g>
-  </svg>
-);
+const AuroraSVG = ({ mouseX }: { mouseX: number }) => {
+  // Map mouseX (0 to width) to a phase offset (0 to 2π)
+  const width = 1440;
+  const phase = ((mouseX / width) * 2 * Math.PI);
+  return (
+    <svg
+      className="absolute inset-0 w-full h-full pointer-events-none z-0"
+      viewBox="0 0 1440 600"
+      fill="none"
+      preserveAspectRatio="none"
+    >
+      <defs>
+        <linearGradient id="aurora1" x1="0" y1="0" x2="1" y2="1">
+          <stop offset="0%" stopColor="#a855f7" stopOpacity="0.7" />
+          <stop offset="100%" stopColor="#06b6d4" stopOpacity="0.3" />
+        </linearGradient>
+        <linearGradient id="aurora2" x1="1" y1="0" x2="0" y2="1">
+          <stop offset="0%" stopColor="#f472b6" stopOpacity="0.6" />
+          <stop offset="100%" stopColor="#6366f1" stopOpacity="0.2" />
+        </linearGradient>
+      </defs>
+      <g>
+        <path
+          d={getSineWavePath({
+            width,
+            height: 600,
+            amplitude: 60,
+            frequency: 2,
+            phase,
+            yOffset: 300,
+            steps: 80,
+          })}
+          fill="url(#aurora1)"
+          style={{ transition: "d 0.15s" }}
+        />
+        <path
+          d={getSineWavePath({
+            width,
+            height: 600,
+            amplitude: 30,
+            frequency: 2.5,
+            phase: phase + Math.PI / 2, // secondary wave
+            yOffset: 400,
+            steps: 80,
+          })}
+          fill="url(#aurora2)"
+          style={{ transition: "d 0.15s" }}
+        />
+      </g>
+    </svg>
+  );
+};
 
 const particlesOptions = {
   fullScreen: { enable: false },
@@ -75,7 +116,7 @@ const particlesOptions = {
 };
 
 const Hero = () => {
-  const [mouseX, setMouseX] = useState(720); // start at center (1440/2)
+  const [mouseX, setMouseX] = useState(720); // Start at center
   const sectionRef = useRef<HTMLDivElement>(null);
 
   useEffect(() => {
@@ -110,7 +151,7 @@ const Hero = () => {
       className="relative flex flex-col items-center justify-center min-h-screen bg-gradient-to-b from-[#09090b] to-[#18181b] text-white overflow-hidden"
       style={{ cursor: "pointer" }}
     >
-      {/* Aurora SVG Animated Waves */}
+      {/* Aurora SVG Animated Sine Waves */}
       <AuroraSVG mouseX={mouseX} />
 
       {/* Particle layer */}
