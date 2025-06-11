@@ -1,7 +1,6 @@
 import { useState, useEffect } from 'react';
 import { projectsData } from '../data/projectsData';
 import { Github } from 'lucide-react';
-import ProjectCardGradient from './ProjectCardGradient';
 
 const Projects = () => {
   const [filter, setFilter] = useState('all');
@@ -102,64 +101,10 @@ const Projects = () => {
               <div className="flex space-x-6 pb-4 project-carousel-all">
                 {/* Duplicate projects for seamless loop */}
                 {visibleProjects.concat(visibleProjects).map((project, idx) => (
-                  <ProjectCardGradient key={project.id + '-' + idx}>
-                    <div className="project-card min-w-[300px] bg-white dark:bg-gray-900 rounded-xl overflow-hidden shadow-lg hover:shadow-xl transition-all duration-300 transform">
-                      <div className="relative overflow-hidden group">
-                        <img
-                          src={project.image}
-                          alt={project.title}
-                          className="w-full h-64 object-cover transition-transform duration-500 group-hover:scale-110"
-                        />
-                        <div className="absolute inset-0 bg-gradient-to-t from-black/70 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300 flex items-end">
-                          <div className="p-6 w-full">
-                            <div className="flex justify-end gap-3">
-                              <a
-                                href={project.github}
-                                target="_blank"
-                                rel="noopener noreferrer"
-                                className="p-2 bg-white/20 backdrop-blur-sm rounded-full hover:bg-white/30 transition-colors duration-200"
-                                aria-label="View source code on GitHub"
-                              >
-                                <Github className="h-5 w-5 text-white" />
-                              </a>
-                            </div>
-                          </div>
-                        </div>
-                      </div>
-                      
-                      <div className="p-6">
-                        <div className="mb-3">
-                          <span className="inline-block px-3 py-1 text-xs font-semibold bg-purple-100 dark:bg-purple-900 text-purple-600 dark:text-purple-300 rounded-full">
-                            {project.category}
-                          </span>
-                        </div>
-                        <h3 className="text-xl font-bold text-gray-800 dark:text-white mb-2">
-                          {project.title}
-                        </h3>
-                        <p className="text-gray-600 dark:text-gray-400 mb-4">
-                          {project.description}
-                        </p>
-                        <div className="flex flex-wrap gap-2">
-                          {project.technologies.map((tech, index) => (
-                            <span
-                              key={index}
-                              className="px-2 py-1 text-xs bg-gradient-to-r from-purple-200 to-indigo-200 dark:from-purple-800 dark:to-indigo-900 text-purple-800 dark:text-purple-200 animate-pulse rounded"
-                            >
-                              {tech}
-                            </span>
-                          ))}
-                        </div>
-                      </div>
-                    </div>
-                  </ProjectCardGradient>
-                ))}
-              </div>
-            </div>
-          ) : (
-            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
-              {visibleProjects.map((project) => (
-                <ProjectCardGradient key={project.id}>
-                  <div className="project-card bg-white dark:bg-gray-900 rounded-xl overflow-hidden shadow-lg hover:shadow-xl transition-all duration-300 transform hover:-translate-y-2">
+                  <div
+                    key={project.id + '-' + idx}
+                    className="project-card min-w-[300px] bg-white dark:bg-gray-900 rounded-xl overflow-hidden shadow-lg hover:shadow-xl transition-all duration-300 transform"
+                  >
                     <div className="relative overflow-hidden group">
                       <img
                         src={project.image}
@@ -199,7 +144,7 @@ const Projects = () => {
                         {project.technologies.map((tech, index) => (
                           <span
                             key={index}
-                            className="px-2 py-1 text-xs bg-gradient-to-r from-purple-200 to-indigo-200 dark:from-purple-800 dark:to-indigo-900 text-purple-800 dark:text-purple-200 animate-pulse rounded"
+                            className="px-2 py-1 text-xs bg-gray-100 dark:bg-gray-800 text-gray-700 dark:text-gray-300 rounded"
                           >
                             {tech}
                           </span>
@@ -207,7 +152,63 @@ const Projects = () => {
                       </div>
                     </div>
                   </div>
-                </ProjectCardGradient>
+                ))}
+              </div>
+            </div>
+          ) : (
+            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+              {visibleProjects.map((project) => (
+                <div
+                  key={project.id}
+                  className="project-card bg-white dark:bg-gray-900 rounded-xl overflow-hidden shadow-lg hover:shadow-xl transition-all duration-300 transform hover:-translate-y-2"
+                >
+                  <div className="relative overflow-hidden group">
+                    <img
+                      src={project.image}
+                      alt={project.title}
+                      className="w-full h-64 object-cover transition-transform duration-500 group-hover:scale-110"
+                    />
+                    <div className="absolute inset-0 bg-gradient-to-t from-black/70 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300 flex items-end">
+                      <div className="p-6 w-full">
+                        <div className="flex justify-end gap-3">
+                          <a
+                            href={project.github}
+                            target="_blank"
+                            rel="noopener noreferrer"
+                            className="p-2 bg-white/20 backdrop-blur-sm rounded-full hover:bg-white/30 transition-colors duration-200"
+                            aria-label="View source code on GitHub"
+                          >
+                            <Github className="h-5 w-5 text-white" />
+                          </a>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                  
+                  <div className="p-6">
+                    <div className="mb-3">
+                      <span className="inline-block px-3 py-1 text-xs font-semibold bg-purple-100 dark:bg-purple-900 text-purple-600 dark:text-purple-300 rounded-full">
+                        {project.category}
+                      </span>
+                    </div>
+                    <h3 className="text-xl font-bold text-gray-800 dark:text-white mb-2">
+                      {project.title}
+                    </h3>
+                    <p className="text-gray-600 dark:text-gray-400 mb-4">
+                      {project.description}
+                    </p>
+                    <div className="flex flex-wrap gap-2">
+                      {project.technologies.map((tech, index) => (
+                        <span
+                          key={index}
+                          className="px-2 py-1 text-xs bg-gray-100 dark:bg-gray-800 text-gray-700 dark:text-gray-300 rounded"
+                        >
+                          {tech}
+                        </span>
+                      ))}
+                    </div>
+                  </div>
+                </div>
               ))}
             </div>
           )}

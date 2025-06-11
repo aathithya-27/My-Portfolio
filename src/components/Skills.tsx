@@ -1,7 +1,7 @@
 import { useState } from 'react';
 import { skillsData } from '../data/skillsData';
 import MobileSkillsCarousel from './MobileSkillsCarousel';
-import SkillBar from './SkillBar'; // <-- Import the SkillBar
+
 
 type SkillCategory = keyof typeof skillsData;
 
@@ -56,7 +56,12 @@ const Skills = () => {
                 {skill.icon}
               </div>
               <h3 className="text-lg font-medium mb-2 text-center">{skill.name}</h3>
-              <SkillBar level={skill.level} /> {/* <-- Use the SkillBar here */}
+              <div className="w-full bg-gray-200 dark:bg-gray-700 h-2 rounded-full overflow-hidden">
+                <div
+                  className="bg-gradient-to-r from-purple-400 via-fuchsia-500 to-indigo-600 h-full rounded-full"
+                  style={{ width: `${skill.level}%` }}
+                ></div>
+              </div>
             </div>
           ))}
         </div>

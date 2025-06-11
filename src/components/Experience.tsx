@@ -1,5 +1,4 @@
 import { experienceData } from '../data/experienceData';
-import ExperienceTimelineBar from './ExperienceTimelineBar';
 
 const Experience = () => {
   return (
@@ -12,28 +11,25 @@ const Experience = () => {
             My professional and academic experiences that have shaped my career.
           </p>
         </div>
-        <div className="relative">
-          <ExperienceTimelineBar />
-          <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-8">
-            {experienceData.map((exp, index) => (
-              <div
-                key={index}
-                className="bg-gray-50 dark:bg-gray-800 rounded-xl shadow-md p-6 transition-transform duration-300 hover:scale-105"
-              >
-                <div className="flex items-center justify-center mb-4 text-purple-600 dark:text-purple-400 text-4xl">
-                  {exp.icon}
-                </div>
-                <h3 className="text-xl font-semibold text-purple-600 dark:text-purple-400 mb-2">{exp.title}</h3>
-                <p className="italic mb-2 text-gray-700 dark:text-gray-300">{exp.company}</p>
-                <p className="mb-4 font-medium text-gray-800 dark:text-gray-200">{exp.period}</p>
-                <ul className="list-disc list-inside space-y-1 text-gray-600 dark:text-gray-400">
-                  {exp.description.map((desc, i) => (
-                    <li key={i}>{desc}</li>
-                  ))}
-                </ul>
+        <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-8">
+          {experienceData.map((exp, index) => (
+            <div
+              key={index}
+              className="bg-gray-50 dark:bg-gray-800 rounded-xl shadow-md p-6 transition-transform duration-300 hover:scale-105"
+            >
+              <div className="flex items-center justify-center mb-4 text-purple-600 dark:text-purple-400 text-4xl">
+                {exp.icon}
               </div>
-            ))}
-          </div>
+              <h3 className="text-xl font-semibold text-purple-600 dark:text-purple-400 mb-2">{exp.title}</h3>
+              <p className="italic mb-2 text-gray-700 dark:text-gray-300">{exp.company}</p>
+              <p className="mb-4 font-medium text-gray-800 dark:text-gray-200">{exp.period}</p>
+              <ul className="list-disc list-inside space-y-1 text-gray-600 dark:text-gray-400">
+                {exp.description.map((desc, i) => (
+                  <li key={i}>{desc}</li>
+                ))}
+              </ul>
+            </div>
+          ))}
         </div>
       </div>
     </section>
