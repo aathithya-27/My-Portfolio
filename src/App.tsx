@@ -1,4 +1,5 @@
 import { useState, useEffect } from 'react';
+import { AnimatePresence } from 'framer-motion'; // Add this import
 import Header from './components/Header';
 import Hero from './components/Hero';
 import About from './components/About';
@@ -30,15 +31,17 @@ function App() {
     <div className="min-h-screen bg-white dark:bg-gray-900 text-gray-800 dark:text-gray-200 transition-colors duration-300">
       <ThemeToggle theme={theme} toggleTheme={toggleTheme} />
       <Header />
-      <main>
-        <Hero />
-        <About />
-        <Skills />
-        <Projects />
-        <Education />
-        <Experience />
-        <Contact />
-      </main>
+      <AnimatePresence mode="wait">
+        <main>
+          <Hero />
+          <About />
+          <Skills />
+          <Projects />
+          <Education />
+          <Experience />
+          <Contact />
+        </main>
+      </AnimatePresence>
       <Footer />
     </div>
   );
