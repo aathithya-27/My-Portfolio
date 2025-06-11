@@ -8,7 +8,7 @@ const Hero = () => (
       <div className="flex flex-col md:flex-row items-center justify-center w-full pt-16 md:pt-24">
         {/* Left: Hello, I'm */}
         <div className="text-5xl sm:text-7xl font-bold text-gray-900 dark:text-white md:text-right md:pr-6 leading-tight transition-colors duration-300">
-          <span className="block">Hello,I,m</span>
+          <span className="block">Hello,I'm</span>
         </div>
         {/* Right: Name */}
         <div className="text-5xl sm:text-7xl font-extrabold text-transparent bg-clip-text bg-gradient-to-r from-purple-500 via-fuchsia-500 to-indigo-500 dark:from-purple-400 dark:via-fuchsia-500 dark:to-indigo-400 md:pl-6 leading-tight">
