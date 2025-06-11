@@ -15,15 +15,14 @@ function getSineWavePath({
   width?: number;
   height?: number;
   amplitude?: number;
-  frequency?: number; // number of full wave cycles across the width
-  phase?: number;     // horizontal shift, in radians
-  yOffset?: number;   // vertical center
-  steps?: number;     // number of points to sample
+  frequency?: number;
+  phase?: number;
+  yOffset?: number;
+  steps?: number;
 }) {
   const points = [];
   for (let i = 0; i <= steps; i++) {
     const x = (i / steps) * width;
-    // The sine function:
     const radians = frequency * ((x / width) * 2 * Math.PI) + phase;
     const y = yOffset + Math.sin(radians) * amplitude;
     points.push([x, y]);
@@ -38,9 +37,9 @@ function getSineWavePath({
 }
 
 const AuroraSVG = ({ mouseX }: { mouseX: number }) => {
-  // Map mouseX (0 to width) to a phase offset (0 to 2π)
   const width = 1440;
   const phase = ((mouseX / width) * 2 * Math.PI);
+
   return (
     <svg
       className="absolute inset-0 w-full h-full pointer-events-none z-0"
@@ -49,16 +48,25 @@ const AuroraSVG = ({ mouseX }: { mouseX: number }) => {
       preserveAspectRatio="none"
     >
       <defs>
-        <linearGradient id="aurora1" x1="0" y1="0" x2="1" y2="1">
-          <stop offset="0%" stopColor="#a855f7" stopOpacity="0.7" />
-          <stop offset="100%" stopColor="#06b6d4" stopOpacity="0.3" />
+        <linearGradient id="waveGradient1" x1="0" y1="0" x2="1440" y2="0" gradientUnits="userSpaceOnUse">
+          <stop offset="0%" stopColor="#a855f7" stopOpacity="0.65" />
+          <stop offset="40%" stopColor="#06b6d4" stopOpacity="0.55" />
+          <stop offset="80%" stopColor="#38bdf8" stopOpacity="0.65" />
+          <stop offset="100%" stopColor="#a855f7" stopOpacity="0.65" />
         </linearGradient>
-        <linearGradient id="aurora2" x1="1" y1="0" x2="0" y2="1">
-          <stop offset="0%" stopColor="#f472b6" stopOpacity="0.6" />
-          <stop offset="100%" stopColor="#6366f1" stopOpacity="0.2" />
+        <linearGradient id="waveGradient2" x1="0" y1="0" x2="1440" y2="0" gradientUnits="userSpaceOnUse">
+          <stop offset="0%" stopColor="#f472b6" stopOpacity="0.5" />
+          <stop offset="60%" stopColor="#8b5cf6" stopOpacity="0.35" />
+          <stop offset="100%" stopColor="#06b6d4" stopOpacity="0.5" />
+        </linearGradient>
+        <linearGradient id="waveGradient3" x1="0" y1="0" x2="1440" y2="0" gradientUnits="userSpaceOnUse">
+          <stop offset="0%" stopColor="#f472b6" stopOpacity="0.2" />
+          <stop offset="60%" stopColor="#38bdf8" stopOpacity="0.17" />
+          <stop offset="100%" stopColor="#a7f3d0" stopOpacity="0.23" />
         </linearGradient>
       </defs>
       <g>
+        {/* Main foreground wave */}
         <path
           d={getSineWavePath({
             width,
@@ -66,23 +74,38 @@ const AuroraSVG = ({ mouseX }: { mouseX: number }) => {
             amplitude: 60,
             frequency: 2,
             phase,
-            yOffset: 300,
+            yOffset: 330,
             steps: 80,
           })}
-          fill="url(#aurora1)"
+          fill="url(#waveGradient1)"
           style={{ transition: "d 0.15s" }}
         />
+        {/* Secondary wave */}
         <path
           d={getSineWavePath({
             width,
             height: 600,
-            amplitude: 30,
-            frequency: 2.5,
-            phase: phase + Math.PI / 2, // secondary wave
-            yOffset: 400,
+            amplitude: 45,
+            frequency: 2.3,
+            phase: phase + Math.PI / 2,
+            yOffset: 380,
             steps: 80,
           })}
-          fill="url(#aurora2)"
+          fill="url(#waveGradient2)"
+          style={{ transition: "d 0.15s" }}
+        />
+        {/* Soft background wave */}
+        <path
+          d={getSineWavePath({
+            width,
+            height: 600,
+            amplitude: 27,
+            frequency: 1.4,
+            phase: phase + Math.PI,
+            yOffset: 435,
+            steps: 80,
+          })}
+          fill="url(#waveGradient3)"
           style={{ transition: "d 0.15s" }}
         />
       </g>
@@ -151,7 +174,7 @@ const Hero = () => {
       className="relative flex flex-col items-center justify-center min-h-screen bg-gradient-to-b from-[#09090b] to-[#18181b] text-white overflow-hidden"
       style={{ cursor: "pointer" }}
     >
-      {/* Aurora SVG Animated Sine Waves */}
+      {/* Aurora SVG Animated Gradient Waves */}
       <AuroraSVG mouseX={mouseX} />
 
       {/* Particle layer */}
