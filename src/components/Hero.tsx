@@ -1,8 +1,20 @@
-import { useCallback } from "react";
+import { useCallback, useEffect, useRef, useState } from "react";
 import Particles from "react-tsparticles";
 import { loadFull } from "tsparticles";
 
-const AuroraSVG = () => (
+function getWavePath(mouseX: number, width = 1440) {
+  // mouseX is in [0, width]
+  // Map mouseX to a control point offset, e.g. [-100, 100]
+  const offset = ((mouseX / width) - 0.5) * 200; // Range: -100 to 100
+  return `
+    M0,300
+    Q400,${200 + offset} 800,${300 + offset}
+    T1440,300
+    L1440,600 L0,600 Z
+  `;
+}
+
+const AuroraSVG = ({ mouseX }: { mouseX: number }) => (
   <svg
     className="absolute inset-0 w-full h-full pointer-events-none z-0"
     viewBox="0 0 1440 600"
@@ -21,44 +33,18 @@ const AuroraSVG = () => (
     </defs>
     <g>
       <path
-        d="
-          M0,300
-          Q400,200 800,300
-          T1440,300
-          L1440,600 L0,600 Z
-        "
+        d={getWavePath(mouseX)}
         fill="url(#aurora1)"
-      >
-        <animate
-          attributeName="d"
-          dur="10s"
-          repeatCount="indefinite"
-          values="
-            M0,300 Q400,200 800,300 T1440,300 L1440,600 L0,600 Z;
-            M0,320 Q400,250 800,330 T1440,350 L1440,600 L0,600 Z;
-            M0,300 Q400,200 800,300 T1440,300 L1440,600 L0,600 Z
-          "
-        />
-      </path>
+        style={{ transition: "d 0.25s" }}
+      />
       <path
-        d="
+        d={`
           M0,400
           Q600,500 1440,400
           L1440,600 L0,600 Z
-        "
+        `}
         fill="url(#aurora2)"
-      >
-        <animate
-          attributeName="d"
-          dur="13s"
-          repeatCount="indefinite"
-          values="
-            M0,400 Q600,500 1440,400 L1440,600 L0,600 Z;
-            M0,420 Q600,480 1440,420 L1440,600 L0,600 Z;
-            M0,400 Q600,500 1440,400 L1440,600 L0,600 Z
-          "
-        />
-      </path>
+      />
     </g>
   </svg>
 );
@@ -89,14 +75,43 @@ const particlesOptions = {
 };
 
 const Hero = () => {
+  const [mouseX, setMouseX] = useState(720); // start at center (1440/2)
+  const sectionRef = useRef<HTMLDivElement>(null);
+
+  useEffect(() => {
+    const handleMouseMove = (e: MouseEvent) => {
+      if (!sectionRef.current) return;
+      const rect = sectionRef.current.getBoundingClientRect();
+      const x = e.clientX - rect.left;
+      setMouseX(Math.max(0, Math.min(x, rect.width)));
+    };
+    const section = sectionRef.current;
+    if (section) {
+      section.addEventListener("mousemove", handleMouseMove);
+      section.addEventListener("touchmove", e => {
+        if (e.touches.length > 0) handleMouseMove(e.touches[0] as any);
+      });
+    }
+    return () => {
+      if (section) {
+        section.removeEventListener("mousemove", handleMouseMove);
+        section.removeEventListener("touchmove", handleMouseMove as any);
+      }
+    };
+  }, []);
+
   const particlesInit = useCallback(async (engine: unknown) => {
     await loadFull(engine as any);
   }, []);
 
   return (
-    <section className="relative flex flex-col items-center justify-center min-h-screen bg-gradient-to-b from-[#09090b] to-[#18181b] text-white overflow-hidden">
+    <section
+      ref={sectionRef}
+      className="relative flex flex-col items-center justify-center min-h-screen bg-gradient-to-b from-[#09090b] to-[#18181b] text-white overflow-hidden"
+      style={{ cursor: "pointer" }}
+    >
       {/* Aurora SVG Animated Waves */}
-      <AuroraSVG />
+      <AuroraSVG mouseX={mouseX} />
 
       {/* Particle layer */}
       <Particles
