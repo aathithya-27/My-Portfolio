@@ -44,17 +44,17 @@ const Skills = () => {
           <MobileSkillsCarousel skills={skills} />
         </div>
 
-        {/* DESKTOP: Responsive grid, smaller cards */}
-        <div className="hidden md:grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-4 gap-6 md:gap-8 mt-8">
+        {/* DESKTOP: Original grid style */}
+        <div className="hidden md:grid grid-cols-2 lg:grid-cols-4 gap-8 mt-8">
           {skills.map((skill) => (
             <div
               key={skill.name}
-              className="rounded-xl bg-gray-50 dark:bg-gray-800 text-gray-900 dark:text-white flex flex-col items-center py-6 px-4 max-w-xs mx-auto shadow-md hover:shadow-xl hover:scale-105 transition-all duration-300"
+              className="rounded-xl bg-gray-50 dark:bg-gray-800 text-gray-900 dark:text-white flex flex-col items-center py-10 shadow-md hover:shadow-xl hover:scale-105 transition-all duration-300"
             >
-              <div className="w-12 h-12 flex items-center justify-center mb-3 text-purple-600 dark:text-purple-400 text-3xl">
+              <div className="w-16 h-16 flex items-center justify-center mb-4 text-purple-600 dark:text-purple-400 text-5xl">
                 {skill.icon}
               </div>
-              <h3 className="text-base font-medium mb-2 text-center">{skill.name}</h3>
+              <h3 className="text-lg font-medium mb-2 text-center">{skill.name}</h3>
               <div className="w-full bg-gray-200 dark:bg-gray-700 h-2 rounded-full overflow-hidden">
                 <div
                   className="bg-gradient-to-r from-purple-400 via-fuchsia-500 to-indigo-600 h-full rounded-full"
