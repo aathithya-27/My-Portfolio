@@ -22,8 +22,10 @@ export default {
         'bounce-slow': 'bounce 3s infinite',
         'gradient-xy': 'gradientXY 3s ease infinite',
         'gradientBG': 'gradientBG 8s ease infinite',
-        'blob': 'blob 16s infinite ease-in-out',
-        'blink': 'blink 1s steps(2, start) infinite', // <-- ADDED for cursor animation
+        'blob': 'blob 20s infinite ease-in-out',
+        'blob2': 'blob2 30s infinite ease-in-out',
+        'blob3': 'blob3 25s infinite ease-in-out',
+        'blink': 'blink 1s steps(2, start) infinite',
       },
       keyframes: {
         fadeIn: {
@@ -51,11 +53,24 @@ export default {
           '50%': { 'background-position': '100% 50%' },
         },
         blob: {
-          '0%,100%': { transform: 'translate(0px, 0px) scale(1)' },
-          '33%': { transform: 'translate(30px, -20px) scale(1.1)' },
-          '66%': { transform: 'translate(-20px, 20px) scale(0.9)' },
+          '0%': { transform: 'translate(0px,0px) scale(1)' },
+          '33%': { transform: 'translate(30px,-50px) scale(1.1)' },
+          '66%': { transform: 'translate(-20px,20px) scale(0.9)' },
+          '100%': { transform: 'translate(0px,0px) scale(1)' },
         },
-        blink: { // <-- ADDED for cursor animation
+        blob2: {
+          '0%': { transform: 'translate(0px,0px) scale(1)' },
+          '33%': { transform: 'translate(-20px,40px) scale(1.05)' },
+          '66%': { transform: 'translate(20px,-30px) scale(0.97)' },
+          '100%': { transform: 'translate(0px,0px) scale(1)' },
+        },
+        blob3: {
+          '0%': { transform: 'translate(0px,0px) scale(1)' },
+          '33%': { transform: 'translate(40px,20px) scale(0.98)' },
+          '66%': { transform: 'translate(-30px,0px) scale(1.07)' },
+          '100%': { transform: 'translate(0px,0px) scale(1)' },
+        },
+        blink: {
           '0%, 100%': { opacity: '1' },
           '50%': { opacity: '0' },
         },
