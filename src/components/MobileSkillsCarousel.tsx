@@ -1,5 +1,5 @@
-import useEmblaCarousel from "embla-carousel-react";
-import Autoplay from "embla-carousel-autoplay";
+import useEmblaCarousel from 'embla-carousel-react';
+import Autoplay from 'embla-carousel-autoplay';
 
 interface Skill {
   name: string;
@@ -13,14 +13,14 @@ interface MobileSkillsCarouselProps {
 
 export default function MobileSkillsCarousel({ skills }: MobileSkillsCarouselProps) {
   const [emblaRef] = useEmblaCarousel(
-  {
-    loop: true,
-    align: "center",
-    dragFree: true,
-    skipSnaps: false,
-  },
-  [Autoplay({ delay: 0, stopOnInteraction: false, stopOnMouseEnter: false })]
-);
+    {
+      loop: true,
+      align: 'center',
+      dragFree: true,
+      skipSnaps: false,
+    },
+    [Autoplay({ delay: 0, stopOnInteraction: false, stopOnMouseEnter: false })]
+  );
 
   return (
     <div
