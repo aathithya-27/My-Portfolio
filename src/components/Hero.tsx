@@ -1,6 +1,5 @@
-import { useCallback, useEffect, useRef, useState } from "react";
-import Particles from "react-tsparticles";
-import { loadFull } from "tsparticles";
+import { useEffect, useRef, useState } from "react";
+import Particles from "@tsparticles/react";
 
 // Generate a smooth SVG path for a sine wave
 function getSineWavePath({
@@ -164,10 +163,6 @@ const Hero = () => {
     };
   }, []);
 
-  const particlesInit = useCallback(async (engine: unknown) => {
-    await loadFull(engine as any);
-  }, []);
-
   return (
     <section
       ref={sectionRef}
@@ -181,7 +176,6 @@ const Hero = () => {
       <Particles
         className="absolute inset-0 w-full h-full z-0 pointer-events-none"
         id="tsparticles"
-        init={particlesInit}
         options={particlesOptions}
       />
 
