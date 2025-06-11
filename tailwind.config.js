@@ -21,8 +21,8 @@ export default {
         'slide-down': 'slideDown 0.5s ease-out',
         'bounce-slow': 'bounce 3s infinite',
         'gradient-xy': 'gradientXY 3s ease infinite',
-        gradientBG: "gradientBG 8s ease infinite",  // <-- NEW
-        blob: "blob 16s infinite ease-in-out",       // <-- NEW
+        'gradientBG': 'gradientBG 8s ease infinite',
+        'blob': 'blob 16s infinite ease-in-out',
       },
       keyframes: {
         fadeIn: {
@@ -45,14 +45,14 @@ export default {
             'background-position': '100% 50%',
           },
         },
-        gradientBG: {                                  // <-- NEW
-          "0%,100%": { "background-position": "0% 50%" },
-          "50%": { "background-position": "100% 50%" },
+        gradientBG: {
+          '0%,100%': { 'background-position': '0% 50%' },
+          '50%': { 'background-position': '100% 50%' },
         },
-        blob: {                                        // <-- NEW
-          "0%,100%": { transform: "translate(0px, 0px) scale(1)" },
-          "33%": { transform: "translate(30px, -20px) scale(1.1)" },
-          "66%": { transform: "translate(-20px, 20px) scale(0.9)" },
+        blob: {
+          '0%,100%': { transform: 'translate(0px, 0px) scale(1)' },
+          '33%': { transform: 'translate(30px, -20px) scale(1.1)' },
+          '66%': { transform: 'translate(-20px, 20px) scale(0.9)' },
         },
       },
       transitionProperty: {
@@ -66,7 +66,7 @@ export default {
       backgroundImage: {
         'purple-gradient': 'linear-gradient(to right, #a855f7, #9333ea)',
       },
-      backgroundSize: {                                // <-- NEW
+      backgroundSize: {
         "200%": "200% 200%",
       },
     },

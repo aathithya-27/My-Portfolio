@@ -1,10 +1,10 @@
 const Hero = () => (
   <section className="relative overflow-hidden py-28 md:py-40 flex items-center justify-center min-h-[60vh]">
     {/* Animated gradient background */}
-    <div className="absolute inset-0 -z-20 bg-gradient-to-br from-purple-500 via-fuchsia-500 to-indigo-500 opacity-70 animate-gradientBG bg-[length:200%_200%]" />
+    <div className="absolute inset-0 -z-20 bg-gradient-to-br from-purple-500 via-fuchsia-500 to-indigo-500 opacity-80 animate-gradientBG bg-[length:200%_200%]" />
 
     {/* Animated blob */}
-    <div className="absolute -top-32 -left-32 w-96 h-96 -z-10 opacity-40 animate-blob pointer-events-none select-none">
+    <div className="absolute -top-32 -left-32 w-96 h-96 -z-10 opacity-30 animate-blob pointer-events-none select-none">
       <svg viewBox="0 0 200 200">
         <defs>
           <linearGradient id="blobGradient" gradientTransform="rotate(45)">
@@ -21,21 +21,18 @@ const Hero = () => (
     </div>
 
     {/* Content */}
-    <div className="relative z-10 text-center text-white">
+    <div className="relative z-10 text-center text-white animate-fade-in">
       <h1 className="text-4xl md:text-6xl font-bold mb-4 drop-shadow-lg">
-        Welcome to My Portfolio
+        Hi, I'm <span className="text-purple-200">Aathithya</span>
       </h1>
-      <p className="text-lg md:text-2xl mb-8 drop-shadow">
-        I build beautiful and functional web experiences.<br />
-        <span className="font-semibold text-fuchsia-200">
-          Let's create something amazing together!
-        </span>
+      <p className="text-lg md:text-2xl mb-8 drop-shadow animate-slide-up">
+        Aspiring developer & designer <br /> Building modern web experiences.
       </p>
       <a
-        href="#contact"
-        className="inline-block px-8 py-3 bg-white/20 hover:bg-white/40 text-lg font-medium rounded-full text-white backdrop-blur transition"
+        href="#projects"
+        className="inline-block px-8 py-3 bg-white/20 hover:bg-white/40 text-lg font-medium rounded-full text-white backdrop-blur transition animate-slide-down"
       >
-        Contact Me
+        View Project
       </a>
     </div>
 
