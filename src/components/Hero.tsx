@@ -10,9 +10,12 @@ const Hero = () => (
         <div className="text-5xl sm:text-7xl font-bold text-gray-900 dark:text-white md:text-right md:pr-6 leading-tight transition-colors duration-300">
           <span className="block">Hello,I'm</span>
         </div>
-        {/* Right: Name */}
+        {/* Right: Name with blinking cursor */}
         <div className="text-5xl sm:text-7xl font-extrabold text-transparent bg-clip-text bg-gradient-to-r from-purple-500 via-fuchsia-500 to-indigo-500 dark:from-purple-400 dark:via-fuchsia-500 dark:to-indigo-400 md:pl-6 leading-tight">
-          <span className="block">Aathithya P R</span>
+          <span className="block">
+            Aathithya P R
+            <span className="inline-block align-middle w-1 h-10 ml-1 bg-purple-400 animate-blink" />
+          </span>
         </div>
       </div>
 

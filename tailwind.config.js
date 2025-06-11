@@ -23,6 +23,7 @@ export default {
         'gradient-xy': 'gradientXY 3s ease infinite',
         'gradientBG': 'gradientBG 8s ease infinite',
         'blob': 'blob 16s infinite ease-in-out',
+        'blink': 'blink 1s steps(2, start) infinite', // <-- ADDED for cursor animation
       },
       keyframes: {
         fadeIn: {
@@ -53,6 +54,10 @@ export default {
           '0%,100%': { transform: 'translate(0px, 0px) scale(1)' },
           '33%': { transform: 'translate(30px, -20px) scale(1.1)' },
           '66%': { transform: 'translate(-20px, 20px) scale(0.9)' },
+        },
+        blink: { // <-- ADDED for cursor animation
+          '0%, 100%': { opacity: '1' },
+          '50%': { opacity: '0' },
         },
       },
       transitionProperty: {
