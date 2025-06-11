@@ -69,18 +69,28 @@ const particlesOptions = {
   particles: {
     number: { value: 60, density: { enable: true, area: 1200 } },
     color: { value: ["#f3f4f6", "#a5b4fc", "#f0abfc"] },
-    opacity: { value: 0.6, random: true, anim: { enable: true, speed: 0.5, opacity_min: 0.3, sync: false } },
+    opacity: {
+      value: 0.6,
+      random: true,
+      anim: { enable: true, speed: 0.5, opacity_min: 0.3, sync: false }
+    },
     size: { value: 2, random: { enable: true, minimumValue: 1 } },
-    move: { enable: true, speed: 0.2, direction: "none", random: true, straight: false, outModes: "out" },
+    move: {
+      enable: true,
+      speed: 0.2,
+      direction: "none" as const,
+      random: true,
+      straight: false,
+      outModes: { default: "out" as const }
+    },
     shape: { type: "circle" }
   },
-  detectRetina: true,
+  detectRetina: true
 };
 
 const Hero = () => {
-  // tsParticles loader for full features
-  const particlesInit = useCallback(async (engine) => {
-    await loadFull(engine);
+  const particlesInit = useCallback(async (engine: unknown) => {
+    await loadFull(engine as any);
   }, []);
 
   return (
