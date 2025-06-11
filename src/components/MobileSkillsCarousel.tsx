@@ -19,7 +19,13 @@ export default function MobileSkillsCarousel({ skills }: MobileSkillsCarouselPro
       dragFree: true,
       skipSnaps: false,
     },
-    [Autoplay({ delay: 0, stopOnInteraction: false, stopOnMouseEnter: false })]
+    [
+      Autoplay({
+        delay: 2500, // Pause 2.5 seconds per slide (change this value as you like)
+        stopOnInteraction: false,
+        stopOnMouseEnter: false,
+      }),
+    ]
   );
 
   return (
