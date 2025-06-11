@@ -1,11 +1,9 @@
-import { useRef } from "react";
-import { useState } from "react";
+import { useRef, useState } from "react";
 
 const Hero = () => {
   const sectionRef = useRef<HTMLDivElement>(null);
   const [gradientPos, setGradientPos] = useState({ x: 50, y: 50 });
 
-  // Update gradient position based on mouse movement
   const handleMouseMove = (e: React.MouseEvent<HTMLDivElement, MouseEvent>) => {
     const rect = sectionRef.current?.getBoundingClientRect();
     if (!rect) return;
@@ -20,8 +18,14 @@ const Hero = () => {
       onMouseMove={handleMouseMove}
       className="relative flex flex-col items-center justify-center min-h-screen bg-white dark:bg-gray-900 text-gray-900 dark:text-white px-4 overflow-hidden transition-colors duration-300"
       style={{
-        // Dynamic gradient background
-        background: `radial-gradient(circle at ${gradientPos.x}% ${gradientPos.y}%, #a855f7 0%, #9333ea 40%, #18181b 100%)`,
+        background: `
+          radial-gradient(
+            circle at ${gradientPos.x}% ${gradientPos.y}%,
+            rgba(168, 85, 247, 0.10) 0%,
+            rgba(147, 51, 234, 0.06) 30%,
+            transparent 70%
+          )
+        `,
         transition: "background 0.2s",
       }}
     >
@@ -29,17 +33,17 @@ const Hero = () => {
       <div className="w-full flex flex-col items-center">
         <div className="flex flex-col md:flex-row items-center justify-center w-full pt-16 md:pt-24">
           {/* Left: Hello, I'm */}
-          <div className="text-5xl sm:text-7xl font-bold text-gray-900 dark:text-white md:text-right md:pr-6 leading-tight transition-colors duration-300">
+          <div className="text-4xl sm:text-6xl font-bold text-gray-900 dark:text-white md:text-right md:pr-6 leading-tight transition-colors duration-300">
             <span className="block">Hello,I'm</span>
           </div>
           {/* Right: Name */}
-          <div className="text-5xl sm:text-7xl font-extrabold text-transparent bg-clip-text bg-gradient-to-r from-purple-500 via-fuchsia-500 to-indigo-500 dark:from-purple-400 dark:via-fuchsia-500 dark:to-indigo-400 md:pl-6 leading-tight">
+          <div className="text-4xl sm:text-6xl font-extrabold text-transparent bg-clip-text bg-gradient-to-r from-purple-500 via-fuchsia-500 to-indigo-500 dark:from-purple-400 dark:via-fuchsia-500 dark:to-indigo-400 md:pl-6 leading-tight">
             <span className="block">Aathithya P R</span>
           </div>
         </div>
 
         {/* Subtitle */}
-        <div className="mt-8 text-center text-2xl sm:text-3xl font-semibold text-gray-700 dark:text-gray-200 transition-colors duration-300">
+        <div className="mt-8 text-center text-xl sm:text-2xl font-semibold text-gray-700 dark:text-gray-200 transition-colors duration-300">
           Software Developer | UI/UX Enthusiast | OpenCV Explorer
         </div>
 
