@@ -97,25 +97,29 @@ const Header = () => {
 
       {/* Mobile Overlay Menu */}
       {isMenuOpen && (
-        <div className="fixed inset-0 z-50 flex items-center justify-center">
+        <div className="fixed inset-0 z-50 flex items-center justify-center
+                        bg-black/70 backdrop-blur-sm transition-all md:bg-transparent md:backdrop-blur-none">
           {/* Centered Card */}
           <div
             ref={menuRef}
-            className="w-11/12 max-w-sm mx-auto rounded-xl bg-white/90 dark:bg-gray-900/90 shadow-2xl flex flex-col items-center py-10 px-4 gap-6 relative ring-1 ring-white/30 backdrop-blur-xl"
+            className="w-11/12 max-w-sm mx-auto rounded-xl
+              bg-gradient-to-br from-purple-600 via-pink-400 to-blue-300
+              shadow-2xl flex flex-col items-center py-10 px-4 gap-6 relative
+              md:bg-transparent md:shadow-none md:py-0 md:px-0 md:gap-0"
           >
             {/* Close Button */}
             <button
-              className="absolute top-4 right-4 p-1 border-2 border-white rounded-lg bg-black/30"
+              className="absolute top-4 right-4 p-1 border-2 border-white rounded-lg md:hidden"
               onClick={() => setIsMenuOpen(false)}
               aria-label="Close menu"
             >
-              <X size={32} className="text-purple-700 dark:text-white" />
+              <X size={32} className="text-white" />
             </button>
             {navLinks.map((link) => (
               <a
                 key={link.name}
                 href={link.href}
-                className="font-bold text-2xl text-purple-800 dark:text-purple-200 hover:text-purple-500 dark:hover:text-white tracking-wide py-2 text-center w-full transition-colors"
+                className="font-bold text-2xl text-black hover:text-white tracking-wide py-2 text-center w-full transition-colors md:text-white md:hover:text-purple-400 md:font-medium md:text-lg md:py-0"
                 onClick={() => setIsMenuOpen(false)}
                 tabIndex={isMenuOpen ? 0 : -1}
               >
