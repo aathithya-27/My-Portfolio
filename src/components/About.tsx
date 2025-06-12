@@ -15,7 +15,7 @@ const About = () => {
               {/* Profile image with stylish ring and hover effect */}
               <div className="relative aspect-square w-full max-w-xs sm:max-w-sm md:max-w-md mx-auto overflow-hidden rounded-xl shadow-2xl ring-4 ring-white/60 dark:ring-gray-900/60 group-hover:ring-8 group-hover:ring-purple-300 transition-all duration-300">
                 <img
-                  src="/profile-about.png]"
+                  src="/profile-about.png"
                   alt="Aathithya P R"
                   className="w-full h-full object-cover object-center grayscale-0 hover:grayscale-[40%] transition duration-300"
                   loading="lazy"
