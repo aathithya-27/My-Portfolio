@@ -23,7 +23,7 @@ const Education = () => {
           </div>
           <div className="bg-gray-50 dark:bg-gray-800 rounded-xl shadow-md p-6">
             <h3 className="text-xl font-semibold text-purple-600 dark:text-purple-400 mb-2">Higher Secondary Certificate</h3>
-            <p className="italic mb-2 text-gray-700 dark:text-gray-300">ABC Higher Secondary School</p>
+            <p className="italic mb-2 text-gray-700 dark:text-gray-300">SVISSS</p>
             <p className="mb-4 font-medium text-gray-800 dark:text-gray-200">2017 - 2019</p>
             <ul className="list-disc list-inside space-y-1 text-gray-600 dark:text-gray-400">
               <li>Science Stream with Mathematics and Physics</li>
@@ -32,8 +32,8 @@ const Education = () => {
           </div>
           <div className="bg-gray-50 dark:bg-gray-800 rounded-xl shadow-md p-6">
             <h3 className="text-xl font-semibold text-purple-600 dark:text-purple-400 mb-2">Secondary School Certificate</h3>
-            <p className="italic mb-2 text-gray-700 dark:text-gray-300">XYZ High School</p>
-            <p className="mb-4 font-medium text-gray-800 dark:text-gray-200">2015 - 2017</p>
+            <p className="italic mb-2 text-gray-700 dark:text-gray-300">SVISSS</p>
+            <p className="mb-4 font-medium text-gray-800 dark:text-gray-200">2019-2021</p>
             <ul className="list-disc list-inside space-y-1 text-gray-600 dark:text-gray-400">
               <li>Completed with Honors</li>
               <li>Member of the Science Club</li>
