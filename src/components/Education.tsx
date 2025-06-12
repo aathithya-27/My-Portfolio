@@ -14,7 +14,7 @@ const Education = () => {
           <div className="bg-gray-50 dark:bg-gray-800 rounded-xl shadow-md p-6">
             <h3 className="text-xl font-semibold text-purple-600 dark:text-purple-400 mb-2">Bachelor of Engineering</h3>
             <p className="italic mb-2 text-gray-700 dark:text-gray-300">R.M.K Engineering College</p>
-            <p className="mb-4 font-medium text-gray-800 dark:text-gray-200">2019 - 2023</p>
+            <p className="mb-4 font-medium text-gray-800 dark:text-gray-200">2021-2025</p>
             <ul className="list-disc list-inside space-y-1 text-gray-600 dark:text-gray-400">
               <li>Specialized in Computer Science and Engineering</li>
               <li>Graduated with First Class Honors</li>
