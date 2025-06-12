@@ -1,5 +1,19 @@
 import { Heart } from 'lucide-react';
 
+// Reuse the ALogo from your Header
+const ALogo = () => (
+  <svg
+    width="32"
+    height="32"
+    viewBox="0 0 24 24"
+    fill="none"
+    xmlns="http://www.w3.org/2000/svg"
+    className="text-purple-400"
+  >
+    <path d="M12 2L2 22H6L12 12L18 22H22L12 2Z" fill="currentColor" />
+  </svg>
+);
+
 const Footer = () => {
   const currentYear = new Date().getFullYear();
   
@@ -9,12 +23,10 @@ const Footer = () => {
         <div className="flex justify-between items-center">
           <a
             href="#home"
-            className="flex items-center gap-2 text-2xl font-bold bg-gradient-to-r from-purple-400 via-fuchsia-500 to-indigo-600 text-transparent bg-clip-text"
+            className="flex items-center gap-2 text-2xl font-bold select-none"
           >
-            <div className="w-10 h-10 rounded-full bg-gradient-to-r from-purple-400 via-fuchsia-500 to-indigo-600 flex items-center justify-center">
-              <span className="select-none text-white">A</span>
-            </div>
-            <span>Aathithya</span>
+            <ALogo />
+            <span className="text-purple-300 font-extrabold hidden sm:block">Aathithya</span>
           </a>
           
           <div className="text-gray-400">
