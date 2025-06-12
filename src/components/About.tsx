@@ -37,7 +37,7 @@ const About = () => {
               </div>
               <div className="flex items-center gap-3">
                 <Calendar className="h-5 w-5 text-purple-600 dark:text-purple-400" />
-                <span className="text-gray-700 dark:text-gray-300">ECE Student</span>
+                <span className="text-gray-700 dark:text-gray-300">ECE Graduate</span>
               </div>
               <div className="flex items-center gap-3">
                 <MapPin className="h-5 w-5 text-purple-600 dark:text-purple-400" />
