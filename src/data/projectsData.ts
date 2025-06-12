@@ -6,7 +6,7 @@ export const projectsData = [
     image: 'https://images.pexels.com/photos/3568520/pexels-photo-3568520.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=2',
     category: 'hardware',
     technologies: ['ESP-32', 'PIR Sensors', 'C++', 'IoT'],
-    github: 'https://github.com',
+    github: 'https://github.com/aathithya-27/Motion-detection-night-light-with-ESP-32',
     demo: 'https://demo.com',
   },
   {
@@ -16,7 +16,7 @@ export const projectsData = [
     image: 'https://images.pexels.com/photos/614117/pexels-photo-614117.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=2',
     category: 'fullstack',
     technologies: ['C#', 'MongoDB', 'UI/UX', 'Database Design'],
-    github: 'https://github.com',
+    github: 'https://github.com/aathithya-27/Client-Contact-Managment-Tool',
     demo: 'https://demo.com',
   },
   {
@@ -26,7 +26,7 @@ export const projectsData = [
     image: 'https://images.pexels.com/photos/2317408/pexels-photo-2317408.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=2',
     category: 'computer-vision',
     technologies: ['Python', 'OpenCV', 'Face-Mesh', 'Machine Learning'],
-    github: 'https://github.com',
+    github: 'https://github.com/aathithya-27/Facemesh',
     demo: 'https://demo.com',
   },
   {
@@ -36,7 +36,7 @@ export const projectsData = [
     image: 'https://images.pexels.com/photos/210019/pexels-photo-210019.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=2',
     category: 'computer-vision',
     technologies: ['MATLAB', 'Image Processing', 'Computer Vision'],
-    github: 'https://github.com',
+    github: 'https://github.com/aathithya-27/StealthHire',
     demo: 'https://demo.com',
   },
   {
@@ -46,7 +46,7 @@ export const projectsData = [
     image: 'https://images.pexels.com/photos/220453/pexels-photo-220453.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=2',
     category: 'computer-vision',
     technologies: ['MATLAB', 'Machine Learning', 'Facial Recognition'],
-    github: 'https://github.com',
+    github: 'https://github.com/aathithya-27/programs',
     demo: 'https://demo.com',
   },
   {
@@ -56,7 +56,7 @@ export const projectsData = [
     image: 'https://images.pexels.com/photos/3861969/pexels-photo-3861969.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=2',
     category: 'hardware',
     technologies: ['FPGA', 'VHDL', 'Image Processing'],
-    github: 'https://github.com',
+    github: 'https://github.com/aathithya-27/FinWatch',
     demo: 'https://demo.com',
   }
 ];
