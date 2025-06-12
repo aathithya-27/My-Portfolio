@@ -35,30 +35,30 @@ function getSineWavePath({
   return d;
 }
 
-const AuroraSVG = ({ mouseX }: { mouseX: number }) => {
-  const width = 1440;
+const AuroraSVG = ({ mouseX, width }: { mouseX: number; width: number }) => {
+  const svgHeight = 600;
   const phase = ((mouseX / width) * 2 * Math.PI);
 
   return (
     <svg
       className="absolute inset-0 w-full h-full pointer-events-none z-0"
-      viewBox="0 0 1440 600"
+      viewBox={`0 0 ${width} ${svgHeight}`}
       fill="none"
       preserveAspectRatio="none"
     >
       <defs>
-        <linearGradient id="waveGradient1" x1="0" y1="0" x2="1440" y2="0" gradientUnits="userSpaceOnUse">
+        <linearGradient id="waveGradient1" x1="0" y1="0" x2={width} y2="0" gradientUnits="userSpaceOnUse">
           <stop offset="0%" stopColor="#a855f7" stopOpacity="0.65" />
           <stop offset="40%" stopColor="#06b6d4" stopOpacity="0.55" />
           <stop offset="80%" stopColor="#38bdf8" stopOpacity="0.65" />
           <stop offset="100%" stopColor="#a855f7" stopOpacity="0.65" />
         </linearGradient>
-        <linearGradient id="waveGradient2" x1="0" y1="0" x2="1440" y2="0" gradientUnits="userSpaceOnUse">
+        <linearGradient id="waveGradient2" x1="0" y1="0" x2={width} y2="0" gradientUnits="userSpaceOnUse">
           <stop offset="0%" stopColor="#f472b6" stopOpacity="0.5" />
           <stop offset="60%" stopColor="#8b5cf6" stopOpacity="0.35" />
           <stop offset="100%" stopColor="#06b6d4" stopOpacity="0.5" />
         </linearGradient>
-        <linearGradient id="waveGradient3" x1="0" y1="0" x2="1440" y2="0" gradientUnits="userSpaceOnUse">
+        <linearGradient id="waveGradient3" x1="0" y1="0" x2={width} y2="0" gradientUnits="userSpaceOnUse">
           <stop offset="0%" stopColor="#f472b6" stopOpacity="0.2" />
           <stop offset="60%" stopColor="#38bdf8" stopOpacity="0.17" />
           <stop offset="100%" stopColor="#a7f3d0" stopOpacity="0.23" />
@@ -69,7 +69,7 @@ const AuroraSVG = ({ mouseX }: { mouseX: number }) => {
         <path
           d={getSineWavePath({
             width,
-            height: 600,
+            height: svgHeight,
             amplitude: 60,
             frequency: 2,
             phase,
@@ -83,7 +83,7 @@ const AuroraSVG = ({ mouseX }: { mouseX: number }) => {
         <path
           d={getSineWavePath({
             width,
-            height: 600,
+            height: svgHeight,
             amplitude: 45,
             frequency: 2.3,
             phase: phase + Math.PI / 2,
@@ -97,7 +97,7 @@ const AuroraSVG = ({ mouseX }: { mouseX: number }) => {
         <path
           d={getSineWavePath({
             width,
-            height: 600,
+            height: svgHeight,
             amplitude: 27,
             frequency: 1.4,
             phase: phase + Math.PI,
@@ -139,26 +139,42 @@ const particlesOptions = {
 
 const Hero = () => {
   const [mouseX, setMouseX] = useState(720); // Start at center
+  const [svgWidth, setSvgWidth] = useState(1440);
   const sectionRef = useRef<HTMLDivElement>(null);
 
+  // Responsive SVG width
   useEffect(() => {
-    const handleMouseMove = (e: MouseEvent) => {
+    const updateWidth = () => {
+      if (sectionRef.current) setSvgWidth(sectionRef.current.offsetWidth);
+    };
+    updateWidth();
+    window.addEventListener("resize", updateWidth);
+    return () => window.removeEventListener("resize", updateWidth);
+  }, []);
+
+  // Unified mouse/touch handler
+  useEffect(() => {
+    const handlePointerMove = (e: MouseEvent | TouchEvent) => {
       if (!sectionRef.current) return;
       const rect = sectionRef.current.getBoundingClientRect();
-      const x = e.clientX - rect.left;
+      let x = 0;
+      if ("touches" in e) {
+        if (e.touches.length === 0) return;
+        x = e.touches[0].clientX - rect.left;
+      } else {
+        x = e.clientX - rect.left;
+      }
       setMouseX(Math.max(0, Math.min(x, rect.width)));
     };
     const section = sectionRef.current;
     if (section) {
-      section.addEventListener("mousemove", handleMouseMove);
-      section.addEventListener("touchmove", e => {
-        if (e.touches.length > 0) handleMouseMove(e.touches[0] as any);
-      });
+      section.addEventListener("mousemove", handlePointerMove);
+      section.addEventListener("touchmove", handlePointerMove);
     }
     return () => {
       if (section) {
-        section.removeEventListener("mousemove", handleMouseMove);
-        section.removeEventListener("touchmove", handleMouseMove as any);
+        section.removeEventListener("mousemove", handlePointerMove);
+        section.removeEventListener("touchmove", handlePointerMove);
       }
     };
   }, []);
@@ -166,11 +182,11 @@ const Hero = () => {
   return (
     <section
       ref={sectionRef}
-      className="relative flex flex-col items-center justify-center min-h-screen bg-gradient-to-b from-[#09090b] to-[#18181b] text-white overflow-hidden"
+      className="relative flex flex-col items-center justify-center min-h-screen h-screen bg-gradient-to-b from-[#09090b] to-[#18181b] text-white overflow-hidden"
       style={{ cursor: "pointer" }}
     >
       {/* Aurora SVG Animated Gradient Waves */}
-      <AuroraSVG mouseX={mouseX} />
+      <AuroraSVG mouseX={mouseX} width={svgWidth} />
 
       {/* Particle layer */}
       <Particles
@@ -181,31 +197,31 @@ const Hero = () => {
 
       {/* Main content */}
       <div className="relative z-10 w-full flex flex-col items-center px-4">
-        <div className="flex flex-col md:flex-row items-center justify-center w-full pt-16 md:pt-24">
-          <div className="flex flex-row items-center text-4xl sm:text-6xl font-bold leading-tight transition-colors duration-300 gap-x-2">
+        <div className="flex flex-col md:flex-row items-center justify-center w-full pt-12 sm:pt-16 md:pt-24">
+          <div className="flex flex-row items-center text-3xl sm:text-5xl md:text-6xl font-bold leading-tight transition-colors duration-300 gap-x-2">
             <span className="text-white">Hello, I&apos;m</span>
             <span className="font-extrabold text-transparent bg-clip-text bg-gradient-to-r from-purple-400 via-fuchsia-400 to-cyan-300">
               Aathithya P R
             </span>
           </div>
         </div>
-        <div className="mt-8 text-center text-xl sm:text-2xl font-semibold text-gray-200 transition-colors duration-300">
+        <div className="mt-6 sm:mt-8 text-center text-lg sm:text-2xl font-semibold text-gray-200 transition-colors duration-300">
           Software Developer | UI/UX Enthusiast | OpenCV Explorer
         </div>
-        <div className="mt-6 max-w-3xl text-center text-base sm:text-lg text-gray-300 font-normal transition-colors duration-300">
+        <div className="mt-4 sm:mt-6 max-w-3xl text-center text-base sm:text-lg text-gray-300 font-normal transition-colors duration-300">
           Building beautiful, responsive web applications with modern technologies.<br />
           Passionate about creating seamless user experiences and clean code.
         </div>
-        <div className="mt-10 flex flex-col sm:flex-row gap-4 justify-center">
+        <div className="mt-8 sm:mt-10 flex flex-col sm:flex-row gap-4 justify-center">
           <a
             href="#projects"
-            className="px-8 py-3 rounded-full bg-gradient-to-r from-purple-500 via-fuchsia-500 to-indigo-500 text-lg font-semibold text-white shadow-lg hover:scale-105 transform transition"
+            className="px-5 py-2 sm:px-8 sm:py-3 rounded-full bg-gradient-to-r from-purple-500 via-fuchsia-500 to-indigo-500 text-base sm:text-lg font-semibold text-white shadow-lg hover:scale-105 transform transition"
           >
             View Project
           </a>
           <a
             href="#contact"
-            className="px-8 py-3 rounded-full border border-purple-400 text-lg font-semibold text-purple-200 hover:bg-purple-100/10 shadow-lg hover:scale-105 transform transition"
+            className="px-5 py-2 sm:px-8 sm:py-3 rounded-full border border-purple-400 text-base sm:text-lg font-semibold text-purple-200 hover:bg-purple-100/10 shadow-lg hover:scale-105 transform transition"
           >
             Contact Me
           </a>
