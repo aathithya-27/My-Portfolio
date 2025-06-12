@@ -23,7 +23,7 @@ const About = () => {
             <div className="w-20 h-1 bg-gradient-to-r from-purple-400 via-fuchsia-500 to-indigo-600 dark:bg-gradient-to-r dark:from-purple-600 dark:via-fuchsia-600 dark:to-indigo-700 mb-6"></div>
             
             <p className="text-lg text-gray-700 dark:text-gray-300 mb-6">
-              I'm an Electronics and Communication Engineering student passionate about real-time applications, with expertise in programming, web development, and project execution. I excel in teamwork, proactive problem-solving, and delivering innovative solutions.
+              I'm an Electronics and Communication Engineering graduate passionate about real-time applications, with expertise in programming, web development, and project execution. I excel in teamwork, proactive problem-solving, and delivering innovative solutions.
             </p>
             
             <p className="text-lg text-gray-700 dark:text-gray-300 mb-8">
