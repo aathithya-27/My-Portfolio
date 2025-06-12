@@ -23,20 +23,26 @@ const Contact = () => {
     setIsSubmitting(true);
 
     try {
-      const serviceID = import.meta.env.VITE_CONTACT_SERVICE_ID;
-      const templateID = import.meta.env.VITE_CONTACT_TEMPLATE_ID;
-      const publicKey = import.meta.env.VITE_CONTACT_PUBLIC_KEY;
+      const response = await fetch('https://formspree.io/f/xldnbbyj', {
+        method: 'POST',
+        headers: {
+          'Accept': 'application/json',
+          'Content-Type': 'application/json'
+        },
+        body: JSON.stringify({
+          name: formData.name,
+          email: formData.email,
+          subject: formData.subject,
+          message: formData.message
+        })
+      });
 
-      if (!serviceID || !templateID || !publicKey) {
-        throw new Error('Missing environment variables for contact form');
+      if (response.ok) {
+        setSubmitStatus('success');
+        setFormData({ name: '', email: '', subject: '', message: '' });
+      } else {
+        setSubmitStatus('error');
       }
-
-      // Example using emailjs or similar service
-      // await emailjs.send(serviceID, templateID, formData, publicKey);
-
-      // Simulate success for now
-      setSubmitStatus('success');
-      setFormData({ name: '', email: '', subject: '', message: '' });
     } catch (error) {
       setSubmitStatus('error');
     } finally {
