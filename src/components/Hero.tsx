@@ -182,11 +182,11 @@ const Hero = () => {
       {/* Main content */}
       <div className="relative z-10 w-full flex flex-col items-center px-4">
         <div className="flex flex-col md:flex-row items-center justify-center w-full pt-16 md:pt-24">
-          <div className="text-4xl sm:text-6xl font-bold text-white md:text-right md:pr-6 leading-tight transition-colors duration-300">
-            <span className="block">Hello, I'm</span>
-          </div>
-          <div className="text-4xl sm:text-6xl font-extrabold text-transparent bg-clip-text bg-gradient-to-r from-purple-400 via-fuchsia-400 to-cyan-300 md:pl-6 leading-tight">
-            <span className="block">Aathithya P R</span>
+          <div className="flex flex-row items-center text-4xl sm:text-6xl font-bold leading-tight transition-colors duration-300 gap-x-2">
+            <span className="text-white">Hello, I&apos;m</span>
+            <span className="font-extrabold text-transparent bg-clip-text bg-gradient-to-r from-purple-400 via-fuchsia-400 to-cyan-300">
+              Aathithya P R
+            </span>
           </div>
         </div>
         <div className="mt-8 text-center text-xl sm:text-2xl font-semibold text-gray-200 transition-colors duration-300">
