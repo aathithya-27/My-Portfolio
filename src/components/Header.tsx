@@ -58,7 +58,7 @@ const Header = () => {
   }, [isMenuOpen]);
 
   return (
-    <header className="fixed top-0 left-0 right-0 z-50 bg-gray-900/60 backdrop-blur-md transition-all">
+    <header className="fixed top-0 left-0 right-0 z-50">
       <div className="w-full border-b border-white/10 transition-all duration-300">
         <div className="container mx-auto px-4 md:px-10 h-16 flex items-center justify-between">
           {/* Logo left */}
@@ -97,11 +97,11 @@ const Header = () => {
 
       {/* Mobile Overlay Menu */}
       {isMenuOpen && (
-        <div className="fixed inset-0 z-50 flex items-center justify-center bg-black/50 backdrop-blur-sm transition-all">
+        <div className="fixed inset-0 z-50 flex items-center justify-center">
           {/* Centered Card */}
           <div
             ref={menuRef}
-            className="w-11/12 max-w-sm mx-auto rounded-xl bg-white/80 dark:bg-gray-900/80 shadow-2xl flex flex-col items-center py-10 px-4 gap-6 relative ring-1 ring-white/30 backdrop-blur-xl"
+            className="w-11/12 max-w-sm mx-auto rounded-xl bg-white/90 dark:bg-gray-900/90 shadow-2xl flex flex-col items-center py-10 px-4 gap-6 relative ring-1 ring-white/30 backdrop-blur-xl"
           >
             {/* Close Button */}
             <button
